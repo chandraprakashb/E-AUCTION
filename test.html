@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./assets/js/libs/jquery/js/jquery-3.6.0.js" defer></script>
+</head>
+<body>
+    <form action="" novalidate class="needs-validate">
+        <input type="text">
+        <button class="">Submit</button>
+    </form>
+
+    <script>
+        var form = document.querySelector("form");
+    
+        const addFormValidations = (formId,callbkFn) =>{
+            let form = $("#"+formId);
+            $(form).off( "submit" );
+
+            $(form).submit(function(event){
+
+                if(form[0].checkValidity() === true) {
+                    callbkFn();
+                }else{
+                    // Toaster("error","Missing Fields","You Are Missing Some Required Fields !")
+                }
+
+                event.preventDefault();
+                event.stopPropagation();
+                form[0].classList.add('was-validated');
+            });
+        }
+
+    </script>
+</body>
+</html>

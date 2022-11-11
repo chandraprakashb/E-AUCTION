@@ -1,0 +1,934 @@
+
+<script>
+    // function Account(){
+
+    //     this.mainSetup = ()=>{
+    //         this.amountSetup();
+    //         this.paymentBasicSetup();
+    //         this.accountDetailsSetup();
+    //     }
+
+    //     // Amount Availbale/Utilize
+    //     this.amountSetup = ()=>{
+    //         var viewBtn = document.querySelector('.view-btn');
+    //         var modal = new Modal('avail-amount');
+            
+    //         this.availAmount = document.getElementById('amount');
+
+
+    //         viewBtn.addEventListener('click',modal.show)
+    //         this.getAmountInfo();
+    //         this.printBasicAmountInfo();
+    //         this.renderUtilizeAmmountTable();
+    //     }
+
+    //     this.getAmountInfo = async()=>{
+    //         this.amountinfo = "The Info Has Been Collected From Server";
+    //     }
+
+    //     this.printBasicAmountInfo=()=>{
+    //         console.log(this.amountinfo);
+    //     }
+
+    //     this.renderUtilizeAmmountTable=()=>{
+    //         console.log(this.amountinfo);
+    //     };
+    //     // End Amount Availbale/Utilize
+
+    //     // Manage Payment
+    //     this.paymentBasicSetup = () =>{
+
+    //         var noDecimalInputs = document.querySelectorAll('.no-decimal-input')
+
+    //         var paymentLadgerBtn = document.getElementById('view-payment-ladger');
+    //         var paymentInitiateBtn = document.getElementById('intiate-payback-btn');
+
+    //         this.makePaymentFormWrapper = document.getElementById('make-payment-form-wrapper');
+    //         this.InitiatePaymentFormWrapper = document.getElementById('initiate-payment-wrapper');
+
+    //         this.onlinePaymentModal = new Modal('online-payment');
+    //         this.offlinePaymentModal = new Modal('offline-payment');
+    //         this.successRequest = new Modal('success-initial-request');
+    //         this.paymentLadger = new Modal('payment-ladger-modal');
+        
+    //         fadeOut(this.makePaymentFormWrapper,this.InitiatePaymentFormWrapper);
+
+    //         noDecimalInputs.forEach(input=>{
+    //             input.addEventListener('keypress',()=>{
+    //                 if((input.value).indexOf('.') === -1) input.nextElementSibling.style.display = 'none';
+    //                 else input.nextElementSibling.style.display = 'inline-block';
+    //             });
+
+    //             input.addEventListener('change',()=>{
+    //                 if((input.value).indexOf('.') === -1) input.nextElementSibling.style.display = 'none';  
+    //                 else input.nextElementSibling.style.display = 'inline-block'; 
+    //             });
+    //         });
+
+    //         paymentLadgerBtn.addEventListener('click',()=>this.paymentLadger.show())
+    //         paymentInitiateBtn.addEventListener('click',()=>{
+    //             fadeIn(this.InitiatePaymentFormWrapper)
+    //             fadeOut(this.makePaymentFormWrapper)
+    //         })
+    //         addFormValidations('do-payment-form',this.doPayment);
+    //         addFormValidations('make-payment-form',this.makePayment);
+    //         addFormValidations('int-payment-request',this.initialPaymentRequest);
+            
+
+    //     }
+
+    //     this.doPayment = async() =>{
+
+    //         closeSidebar()
+
+    //         fadeIn(this.makePaymentFormWrapper);
+    //         fadeOut(this.InitiatePaymentFormWrapper);
+    //     }
+
+    //     this.makePayment = () =>{
+
+    //         var onlineCheck = document.getElementById('online-check');
+    //         var offilineCheck = document.getElementById('offline-check');
+
+    //         if(onlineCheck.checked === false && offilineCheck.checked === false){
+    //             Toaster('error','Invalid Payment Mode','please select Payment Mode');
+    //             return;
+    //         }
+
+
+    //         if(onlineCheck.checked){
+    //             this.onlinePaymentModal.show();
+    //         }else if(offilineCheck.checked){
+    //             this.offlinePaymentModal.show();
+    //         }
+
+    //         this.resetPaymentForm();
+
+    //     }
+
+    //     this.resetPaymentForm = ()=>{
+    //         var makePaymentForm = document.getElementById('make-payment-form')
+
+    //         fadeOut(this.makePaymentFormWrapper)
+    //         makePaymentForm.reset();
+    //     }
+
+    //     this.initialPaymentRequest = ()=>{
+    //         var formData = new FormData(document.getElementById('int-payment-request'));
+    //         var requestAmount = parseInt(formData.get('amount'));
+    //         var availAmount = parseInt(this.availAmount.textContent);
+            
+    //         if(availAmount < requestAmount){
+    //             Toaster('error','Greater Amount !','Amount You entered is greater than available amount');
+    //             return;
+    //         }else if(availAmount >= requestAmount){
+    //             this.successRequest.show();
+    //         }
+    //     }
+
+
+    //     // End Manage Payment
+
+    //     // E-Wallet Account Details
+    //     this.accountDetailsSetup = () =>{
+    //         $("#accnt-detail-box").fadeOut()
+    //         $("#show-accn-btn").click(()=>$("#accnt-detail-box").fadeIn())
+    //     }
+    //     // End E-wallet Account Details 
+
+
+    // }
+    // var account = new Account();
+    //     account.mainSetup();
+</script>   
+
+<!-- <style>
+    .main-para{
+        font-size: 19px;
+        font-weight: 600;
+    }
+    
+    .main-para .view-btn{
+        font-size: 12px;
+        border: 0.5px solid #3f6ad8;
+        border-radius: 7px;
+        width: 70px;
+        color: #3f6ad8;
+        transition: 0.5s;
+        cursor: pointer;
+    }
+
+    .main-para .view-btn:hover{
+        background-color: #3f6ad8;
+        color: white;
+    }
+
+    .payment-section{
+        background-color: #fff;
+        padding-top: 15px;
+        padding-bottom: 10px;
+    }
+
+    .payment-section p{
+        margin-bottom: 30px !important;
+    }
+    /* Amount-section */
+    .amount-section{
+        width: 100%;
+    }
+
+    .my-popup{
+        width: 100% !important;
+        height: 100vh !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        background-color: rgba(0,0,0,0.3) !important;
+        z-index: 1000000;
+    }
+    .modal-wrapper{
+        width: 75%;
+        height: 100vh;
+        margin: auto;
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+    }
+    .modal_content{
+        margin-top: 70px ;   
+
+    }
+        /* width */
+        .modal-wrapper::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    /* Track */
+    .modal-wrapper::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+    }
+    
+    /* Handle */
+    .modal-wrapper::-webkit-scrollbar-thumb {
+        background: #3f6ad8; 
+        border-radius: 10px;
+        height: 1px !important;
+    }
+
+    /* Handle on hover */
+    .modal-wrapper::-webkit-scrollbar-thumb:hover {
+        background: #3f6ad8; 
+    }
+    /* End Amount-section */
+    thead{
+    background-color: #3f6ad8 ;
+    color: white;  
+}
+
+.account-detail-section .info{
+    background-color: #fff !important;
+    padding-top: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 7px 3px 65px -5px rgba(227,235,255,1);
+    -moz-box-shadow: 7px 3px 65px -5px rgba(227,235,255,1);
+    box-shadow: 7px 3px 65px -5px rgba(227,235,255,1);
+}
+
+.account-detail-section .info .text-right{
+    color:#3f6ad8 ;
+}
+
+
+#payment-ladger-modal .modal-wrapper{
+    width: 85% !important;
+}
+
+
+.border-box{
+    border-radius: 5px;
+    margin-left: 1px;
+    margin-top: 20px;
+    margin-right: 1px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #fff;
+    -webkit-box-shadow: -8px -31px 101px -3px rgba(190,195,209,1);
+    -moz-box-shadow: -8px -31px 101px -3px rgba(190,195,209,1);
+    box-shadow: -8px -31px 101px -3px rgba(190,195,209,1);
+}
+
+</style> -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4>E-Wallet</h4>
+        <hr>
+    </div>
+</div>
+<section class="amount-section col-lg-12 col-12">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-lg-5 col-8">
+                    <p class="text-right main-para">Amount Available for BID/Payments:</p>
+                </div>
+                <div class="col-lg-7 col-4"><p class="main-para"><span class="badge badge-primary">RS. <span id="amount">90000</span></span></p></div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row">
+                <div class="col-lg-5 col-8">
+                    <p class="text-right main-para">Amount Utilized in BID:</p>
+                </div>
+                <div class="col-lg-7 col-4"><p class="main-para"><span class="badge badge-success">RS. 11000</span> <button type="button" class="view-btn">View</button></p></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-popup" id="avail-amount">
+        <div id="modal-wrapper" class="modal-wrapper">
+            <div class="modal_content">
+                <div class="row">
+                    <div class="col-12 m-auto">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="text-center">Amount Utilized in BID</h2>
+                                <hr>
+                                <table class="table table-bordered border-primary">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th rowspan="2">Portal Name</th>
+                                            <th rowspan="2">Office Name</th>
+                                            <th rowspan="2">Lot No.</th>
+                                            <th rowspan="2">Total Bid Amount</th>
+                                            <th colspan="4">Utilize Payment Details</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Use Bid Amount/Sale Price</th>
+                                            <th>GST</th>
+                                            <th>TCS</th>
+                                            <th>Bidding Date & Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Row 1 -->
+                                        <tr>
+                                            <td rowspan="3">Portal Name 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Office Name 1</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Office Name 2</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <!-- Row 2 -->
+                                        <tr>
+                                            <td rowspan="3">Portal Name 2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Office Name 1</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Office Name 2</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <!-- Row 3 -->
+                                        <tr>
+                                            <td rowspan="3">Portal Name 3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Office Name 1</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Office Name 2</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <!-- Row 4 -->
+                                        <tr>
+                                            <td rowspan="3">Portal Name 4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Office Name 1</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Office Name 2</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                                <hr>
+                                <div class="text-center"><button class="btn btn-danger" id="close-btn">Close</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr>
+
+<section class="payment-section" >  
+    <p class="text-center text-success"><strong>To increase you Bid capacity/paid any payment, Please transfer amount to your anr Registered/Unregistered Bank Account.</strong></p>
+
+    <div class="row" id="payment-wrapper">
+        <div class="col-7" id="do-payment-wrapper">
+            <form id="do-payment-form" class="needs-validation" novalidate>
+                <div class="row">
+                    <div class="col-4"><p class="text-right"><label for="">Enter Deposit Amount:</label></p></div>
+                    <div class="col-4"><input type="number" class="form-control no-decimal-input" name="amount"   autofocus required><small class="text-danger" style="display: none;">Please Enter Amount Without any Decimal Point </small></div>
+                    <div class="col-4"><button class="btn btn-primary">Do Payment</button></div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-5">
+            <button type="button" class="btn btn-outline-primary" id="view-payment-ladger">View Payment Ladger</button>
+            <button type="button" class="btn btn-outline-info" id="intiate-payback-btn">Initiate PayBack</button>
+        </div>
+
+        <div class="col-12" id="make-payment">
+            
+            <div class="row" id="make-payment-form-wrapper">
+                <div class="col-12"><hr></div>
+                <div class="col-10 m-auto">
+                    <form id="make-payment-form" class="needs-validation" novalidate>
+                        <table class="table table-bordered border-primary text-center">
+                            <thead>
+                                <tr>
+                                    <th>Tran. No.</th>
+                                    <th>Amount</th>
+                                    <th rowspan="2" colspan="2">Payment Mode</th>
+                                    <th ></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>000001</td>
+                                    <td>10000</td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment-radio" id="online-check">
+                                            <label class="form-check-label" for="online-check">Online</label>
+                                            <p class="text-center">(Net Banking/UPI/QR Code /Wallet/Credit Card/Debit Card)</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment-radio" id="offline-check">
+                                            <label class="form-check-label" for="offline-check">Ofline Chalan</label>
+                                            <p class="text-center">(NEFT/IMPS/RTGS)</p>
+                                        </div>  
+                                    </td>
+                                    <td>
+                                        <p class="text-center"><button class="btn btn-warning">Make Payment </button></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <!-- Online Payment Modal -->
+            <div id="online-payment">
+                <div id="modal-wrapper" class="modal-wrapper">
+                    <div class="modal_content">
+                        <div class="row">
+                            <div class="col-12 m-auto">
+                                <div class="card" style="height: 400px;">
+                                    <div class="card-body">
+                                        <h1 class="text-center">Online Payment </h1>
+
+                                        <div class="text-center"><button class="btn btn-danger" id="close-btn">Close</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- EndOnline Payment Modal -->
+            <!-- Online Payment Modal -->
+            <div id="offline-payment">
+                <div id="modal-wrapper" class="modal-wrapper">
+                    <div class="modal_content">
+                        <div class="row">
+                            <div class="col-12 m-auto">
+                                <div class="card" style="height: 400px;">
+                                    <div class="card-body">
+                                        <h1 class="text-center">Offilne Payment </h1>
+
+                                        <div class="text-center"><button class="btn btn-danger" id="close-btn">Close</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- EndOnline Payment Modal -->
+        </div>
+
+        <div class="col-12" id="payment-ladger">
+            <div id="payment-ladger-modal">
+                <div id="modal-wrapper" class="modal-wrapper">
+                    <div class="modal_content">
+                        <div class="row">
+                            <div class="col-12 m-auto">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form id="search-form" class="needs-validation" novalidate>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="row">
+                                                        <div class="col-2"><p class="text-right">From:</p></div>
+                                                        <div class="col-4">
+                                                           <input required type="date" class="form-control">
+                                                        </div>
+                                                        <div class="col-2"><p class="text-right">To:</p></div>
+                                                        <div class="col-4">
+                                                            <input required type="date" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <button class="btn btn-primary" type="submit">Search</button>
+                                                    <span class="btn btn-success">Export</span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <hr>
+
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-6 text-right">
+                                                        <span><strong>Online Deposit Count / Amount:</strong></span>
+                                                    </div>
+                                                    <div class="col-6"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-6 text-right">
+                                                        <span><strong>Offline Deposit Count / Amount:</strong></span>
+                                                    </div>
+                                                    <div class="col-6"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-6 text-right">
+                                                        <span><strong>Total Office Paid:</strong></span>
+                                                    </div>
+                                                    <div class="col-6"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-6 text-right">
+                                                        <span><strong>Total Serive Charge Paid:</strong></span>
+                                                    </div>
+                                                    <div class="col-6"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-6 text-right">
+                                                        <span><strong>Total Refund Return:</strong></span>
+                                                    </div>
+                                                    <div class="col-6"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row border-box">
+                                            <div class="col-4">
+                                                <div class="row">
+                                                    <div class="col-6 text-center">
+                                                        <span><strong>Total Deposit:</strong></span>
+                                                        <span class="text-primary" style="font-size: 16px;"><strong>80,000.</strong></span>
+                                                    </div>
+                                                    <div class="col-6"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="row">
+                                                    <div class="col-6 text-center">
+                                                        <span><strong>Total Used:</strong></span><span class="text-danger" style="font-size: 16px;"><strong> 60,000.</strong></span>
+                                                    </div>
+                                                    <div class="col-6"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="row">
+                                                    <div class="col-6 text-center">
+                                                        <span><strong>Total Balance:</strong></span><span class="text-success" style="font-size: 16px;"> <strong>20,000.</strong></span>
+                                                    </div>
+                                                    <div class="col-6"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <table class="table table-bordered border-primary">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr. No.</th>
+                                                    <th>Portal</th>
+                                                    <th>Paid To</th>
+                                                    <th>Payment Remark/Remitter Remark</th>
+                                                    <th>Tran. No.</th>
+                                                    <th>Date & Time</th>
+                                                    <th>Credit/Debit</th>
+                                                    <th>Payment Mode</th>
+                                                    <th>Amount</th>
+                                                    <th>Status</th>
+                                                    <th>Balance Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="row">
+                                            <div class="col-6 m-auto">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <label for="page-count">Page Count</label>
+                                                        <select name="" id="page-count" class="form-control">
+                                                            <option value="1">1 of 10</option>
+                                                            <option value="2">2 of 10</option>
+                                                            <option value="3">3 of 10</option>
+                                                            <option value="4">4 of 10</option>
+                                                            <option value="5">5 of 10</option>
+                                                            <option value="6">6 of 10</option>
+                                                            <option value="7">7 of 10</option>
+                                                            <option value="8">8 of 10</option>
+                                                            <option value="9">9 of 10</option>
+                                                            <option value="10">10 of 10</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="row-count">Row Count</label>
+                                                        <select name="" id="row-count" class="form-control">
+                                                            <option value="10">10 of 1000</option>
+                                                            <option value="20">20 of 1000</option>
+                                                            <option value="50">50 of 1000</option>
+                                                            <option value="100">100 of 1000</option>
+                                                            <option value="500">500 of 1000</option>
+                                                            <option value="1000">1000 of 1000</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="text-center">
+                                            <hr>
+                                            <p class="text-right"><button style="" class="btn btn-danger" id="close-btn">Close</button></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12" id="initiate-payment-wrapper">
+            <hr>
+            <div class="row">
+                <div class="col-3"><p class="text-right"><strong>Bank Account Holder Name:</strong></p></div>
+                <div class="col-9"><p class="text-right"><strong></strong></p></div>
+                <div class="col-3"><p class="text-right"><strong>Bank Account Number:</strong></p></div>
+                <div class="col-9"><p class="text-right"><strong></strong></p></div>
+                <div class="col-3"><p class="text-right"><strong>IFSC Code:</strong></p></div>
+                <div class="col-9"><p class="text-right"><strong></strong></p></div>
+                <div class="col-12">
+                    <form id="int-payment-request" class="needs-validation" novalidate>
+                        <div class="row">
+                            <div class="col-3"><p class="text-right"><strong>Initiate Amount PayBack:</strong></p></div>
+                            <div class="col-4"><input type="number" required name="amount"  class="form-control no-decimal-input"><small class="text-danger" style="display: none;">Please Enter Amount Without any Decimal Point </small></div>
+                            <div class="col-5"><button class="btn btn-info">Initiate Request</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!--  -->
+            <div id="success-initial-request">
+                <div id="modal-wrapper" class="modal-wrapper">
+                    <div class="modal_content">
+                        <div class="row">
+                            <div class="col-5 m-auto">
+                                <div class="card" style="">
+                                    <div class="card-body">
+                                        <h4 class="text-primary text-center">Success Payback Request !</h4>
+                                        <p class="text-center">Payback Amount will be credited on your bank account within 72 working hours .</p>
+                                        <hr>
+                                        <div class="text-center"><button class="btn btn-danger" id="close-btn">Close</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="account-detail-section mt-3">
+    <p><strong>Permanant E-Wallet Account Details:</strong> <span class="badge badge-primary" style="cursor: pointer;" id="show-accn-btn">Show</span></p>
+    <div class="row" id="accnt-detail-box">
+        <div class="col-6 m-auto info">
+            <div class="row">
+                <div class="col-4"><p class="text-right"><strong>Account Name:</strong></p></div>
+                <div class="col-8">Chandraprakash Ramesh Bagde</div>
+                <div class="col-4"><p class="text-right"><strong>Account Number:</strong></p></div>
+                <div class="col-8">098765432112</div>
+                <div class="col-4"><p class="text-right"><strong>IFSC Code:</strong></p></div>
+                <div class="col-8">MAHAB0000058</div>
+                <div class="col-4"><p class="text-right"><strong>Bank Name:</strong></p></div>
+                <div class="col-8">Bank Of Maharashtra</div>
+                <div class="col-4"><p class="text-right"><strong>Branch:</strong></p></div>
+                <div class="col-8">Gondia</div>
+            </div>
+            <p class="text-center text-danger"><strong>( Note: </strong>e-Wallet permanant account number only used for offline payment mode (NEFT/IMPS/RTGS)<strong>)</strong></p>
+        </div>
+    </div>
+</section>

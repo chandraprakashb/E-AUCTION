@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Login</title>
+    <!-- Bootstrap -->
+    <script src="./assets/js/libs/bootstrap/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous" defer></script>
+    <link href="./assets/js/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- End Bootstrap -->
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- End Font Awesome-->
+
+    <style>
+
+        body{
+            background-image: url(./assets/imgs/background.jpg);
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+        }
+
+        .login-wrapper{
+          background-color: #fff;
+          padding: 7px 10px;
+          border-radius: 5px;
+          margin-top: 160px;
+        }
+
+        .login-wrapper label{
+            font-size: 14px;
+            margin-bottom: 3px;
+            color: rgba(0,0,0,0.3);
+            font-weight: 600;
+        }
+
+        .login-wrapper input{
+            font-size: 14px;
+        }
+
+        .input-group-text{
+            height: 40px !important;
+            background-image: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%) !important;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-lg-3 login-wrapper">
+
+        <h2 class="text-center">Login</h2>
+        <hr>
+        <form class="needs-validation pt-1 pb-3" id="login-form" novalidate>
+            <div class="row">
+                <div class="col-md-12 pb-3 m-auto">
+                    <label for="username">Username</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text" id="usernamePrepend"><i class="fa-solid fa-user"></i></div>
+                        </div>
+                        <input type="text" class="form-control" id="username" name="USR_LOGIN" placeholder="Username" aria-describedby="usernamePrepend" required="">
+                    </div>
+                </div>
+                <div class="col-md-12 pb-3 m-auto">
+                    <label for="password">Password</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text" id="passwordPrepend">
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
+                        </div>
+                        <input type="password" class="form-control" id="password" name="USR_PWD" placeholder="Password" aria-describedby="passwordPrepend" required="">
+                    </div>
+                </div>
+            </div>
+            <p><a href="forgot-password.html">Forget Username/Password</a></p>
+            <button class="btn btn-primary w-100 col-6 m-auto" type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        function ManageLogin(){
+
+            this.mainSetup = () =>{
+
+            }
+
+            this.sendHTTPRequest = (url,data) =>{
+                return new Promise(resolve=>{
+                    appLoader.style.display = 'flex';
+                    let reqData = data;
+                    reqData.delete('token');
+                    reqData.append('token',localStorage.getItem('token'));
+                    $.ajax({
+                        type: "POST",
+                        url: host+url,
+                        data: reqData,
+                        processData: false,
+                        contentType:false,
+                        timeout: 600000,
+                        success: function (response) {
+                            if(reqData.get('act') !== 'getall' && reqData.get('act') !== 'getall'){
+                                valResponse(response)
+                            }
+                            appLoader.style.display = 'none';
+                            resolve(response)
+                        },
+                        error: function(response){
+                            valResponse(response)
+                            resolve(response)
+                            appLoader.style.display = 'none';
+                        }
+                    });
+                })
+     
+            
+            }
+
+            const addFormValidations = (formId,callbkFn) =>{
+                let form = $("#"+formId);
+                $(form).off( "submit" );
+
+                $(form).submit(function(event){
+
+                    if(form[0].checkValidity() === true) {
+                        callbkFn();
+                    }else{
+                        Toaster("error","Missing Fields","You Are Missing Some Required Fields !")
+                    }
+
+                    event.preventDefault();
+                    event.stopPropagation();
+                    form[0].classList.add('was-validated');
+
+                });
+}
+        }
+    </script>
+</body>
+</html>

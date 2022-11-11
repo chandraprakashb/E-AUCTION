@@ -1,0 +1,628 @@
+<script>
+  function Unknown() {
+    this.mainSetup = () => {
+      this.termsModal   = new Modal('show-conditions-modal');
+      this.addAmount    = new Modal('add-amount-modal');
+      this.lotInfoModal = new Modal('lot-info-modal');
+
+      var searchSection = document.querySelector('.search-section');
+      var hideSearch = document.querySelector('.hide-btn')
+      var showSearch = document.querySelector('.search-btn')
+
+    fadeOut(showSearch)
+
+    hideSearch.addEventListener('click',()=>{
+        fadeIn(showSearch)
+        fadeOut(searchSection)
+    })
+    showSearch.addEventListener('click',()=>{
+      fadeOut(showSearch)
+      fadeIn(searchSection)
+    })
+
+
+
+      closeSidebar()
+    
+      console.log(document.querySelectorAll('.view-btn'));
+      document.querySelectorAll('.view-btn').forEach((viewBtn)=>{
+        viewBtn.addEventListener('click',()=>{
+            // detailRows.forEach((detailRow)=>{
+            //     detailRow.style.display = 'none';
+            // })
+
+            console.log(viewBtn);
+
+           this.lotInfoModal.show();
+        })
+      });
+
+
+      document.querySelector('#show-conditions').addEventListener('click',()=>{
+        this.termsModal.show();
+      })
+      document.querySelector('.add-amount').addEventListener('click',()=>{
+        this.addAmount.show();
+      })
+
+      this.manageSearch();
+
+    };
+
+    // Manage Search Setup
+    this.manageSearch = () => {
+      addFormValidations("search-form", this.searchData);
+    };
+
+    this.searchData = () => {};
+    // End Manage Search Setup
+
+    // Manage User Agree
+    this.manageUserAgree = () => {};
+    // End User Agree
+  }
+
+  var unkown = new Unknown();
+  unkown.mainSetup();
+</script>
+
+<!-- <style>
+  section {
+    background-color: #fff;
+    padding: 2px 5px 5px 5px;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px -2px 30px -14px rgba(63, 106, 216, 1);
+    -moz-box-shadow: 0px -2px 30px -14px rgba(63, 106, 216, 1);
+    box-shadow: 0px -2px 30px -14px rgba(63, 106, 216, 1);
+  }
+
+  .search-section .main-wrapper {
+    background-color: #fff;
+    box-shadow: 0px 2px 22px 5px rgba(214, 214, 214, 0.75);
+    -webkit-box-shadow: 0px 2px 22px 5px rgba(214, 214, 214, 0.75);
+    -moz-box-shadow: 0px 2px 22px 5px rgba(214, 214, 214, 0.75);
+    /* padding: 10px 0px; */
+    border-radius: 5px;
+    padding-bottom: 0px !important;
+  }
+
+  .search-section .main-wrapper p {
+    padding: 0 !important;
+    padding-bottom: 0px !important;
+    margin-bottom:5px;
+  }
+
+  .search-section hr{
+    margin: 10px 0px;
+  }
+
+  .search-section .main-wrapper .heading {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .search-section .label {
+    text-align: right !important;
+    color: #3f6ad8;
+    font-weight: 600;
+  }
+
+  .search-section input {
+    width: 100px;
+  }
+
+  .amount-info .heading {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .amount-info span {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+  }
+
+  .info__wrapper {
+    /* -webkit-box-shadow: 1px 2px 14px -1px rgba(63, 106, 216, 1);
+    -moz-box-shadow: 1px 2px 14px -1px rgba(63, 106, 216, 1);
+    box-shadow: 1px 2px 14px -1px rgba(63, 106, 216, 1);
+    border-radius: 5px; */
+    padding: 5px 10px;
+  }
+
+  .main-heading p {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .info {
+    margin-bottom: 10px;
+  }
+
+  .info .heading {
+    font-weight: 600;
+    color: grey;
+  }
+
+  table tbody .info-row {
+    display: none;
+  }
+
+  .view-btn{
+    color: #3f6ad8;
+    cursor: pointer;
+  }
+
+  .note p{
+    color: #3f6ad8;
+    font-size: 15px;
+  }
+
+  .my-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000000;
+    padding-top: 180px;
+  }
+
+  .main-hr{
+    margin: 9px 0px;
+  }
+
+  .start-count-down-wrapper{
+    background-color: #b3c8ff;
+    border-radius: 10px;
+    padding: 5px 0px;
+  }
+
+  .breake-count-down-wrapper{
+    background-color: rgb(183, 255, 183);
+    border-radius: 10px;
+    padding: 5px 0px;
+  }
+</style> -->
+
+<div class="row">
+  <div class="col-lg-12">
+    <h4>Upcoming Auction</h4>
+    <hr />
+  </div>
+</div>
+
+<section class="search-section">
+  <form id="search-form" class="needs-validation" novalidate>
+    <div class="row">
+      <div class="col-6 m-auto main-wrapper">
+        <p class="text-center p-0">
+          <span class="heading">Head Office/Department Name:</span>
+          <select name="">
+            <option value="">select</option>
+          </select>
+        </p>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="row mt-3 select-wrapper">
+      <div class="col-12">
+        <p class="text-center">
+          <span class="label">Office/Division Name:</span>
+          <select name="">
+            <option value="">select</option>
+          </select>
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="label">eAuction No.:</span>
+          <select name="">
+            <option value="">select</option>
+          </select>
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="label">Auction Status:</span>
+          <select name="">
+            <option value="">All</option>
+            <option value="">Selected Lots</option>
+            <option value="">Running Lots</option>
+            <option value="">Upcomming Lots</option>
+            <option value="">Ended Lots</option>
+            <option value="">Unsold Lots</option>
+          </select>
+          
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="label">Date:</span>
+          <input type="date" />
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="label">Batch No.:</span>
+          <input type="text" />
+
+        </p>
+      </div>
+      <div class="col-12">
+        <div class="text-center">
+          <button class="btn btn-primary">Search</button>
+          <span class="btn btn-danger hide-btn">Hide</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+
+<div class="show-after-search mt-2">
+
+  <div class="user-agree">
+    <div class="row">
+      <div class="col-10 m-auto">
+       
+          <button id="show-conditions" class="btn btn-primary" title="Click Here To Show and accept Terms And Conditions." >Departmental e-Auction Sale Terms & Conditions</button>
+     
+      </div>
+      <div class="col-2 text-right">
+        <button class="btn search-btn btn-primary"><i class="pe-7s-search"></i></button>
+      </div>
+    </div>
+    <hr class="main-hr">
+    <div id="show-conditions-modal" class="my-modal">
+      <div class="row">
+        <section class="col-7 m-auto">
+          <h4 class="text-center">e-Auction Sale Terms And Conditions</h4>
+          <hr>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. In magnam, provident omnis iste impedit laborum ab enim assumenda eveniet numquam. Cupiditate, dignissimos iste quo vero dolores aliquid voluptatum officiis amet.</p>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. In magnam, provident omnis iste impedit laborum ab enim assumenda eveniet numquam. Cupiditate, dignissimos iste quo vero dolores aliquid voluptatum officiis amet.</p>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. In magnam, provident omnis iste impedit laborum ab enim assumenda eveniet numquam. Cupiditate, dignissimos iste quo vero dolores aliquid voluptatum officiis amet.</p>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. In magnam, provident omnis iste impedit laborum ab enim assumenda eveniet numquam. Cupiditate, dignissimos iste quo vero dolores aliquid voluptatum officiis amet.</p>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. In magnam, provident omnis iste impedit laborum ab enim assumenda eveniet numquam. Cupiditate, dignissimos iste quo vero dolores aliquid voluptatum officiis amet.</p>
+          <hr>
+          <button class="btn btn-primary">Agree</button>
+          <button class="btn btn-danger" id="close-btn">Cancel</button>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-12">
+      <section class="amount-info pt-2 pb-2">
+        <div class="row">
+
+          <div class="col-6 col-lg-4">
+            <span class="heading">e-Wallet Available Amount:</span>
+            <span class="">
+              <i class="fas fa-inr"></i>
+              <span class="amount" style="font-size: 15px !important;">1000.00</span>
+            </span>
+          </div>
+
+          <div class="col-6 col-lg-5">
+            <span class="heading">Pucrhase Capicty Amount:</span>
+            <span class="">
+              <i class="fas fa-inr"></i>
+              <span class="amount" style="font-size: 15px !important;">1000.00</span>
+            </span>
+          </div>
+
+          <div class="col-12 col-lg-3 text-right">
+            <button class="btn btn-primary add-amount" title="Add Amount">Add Amount</button>
+            <button class="btn btn-outline-success">Refresh</button>
+          </div>
+
+        </div>
+      </section>
+    </div>
+    
+    <div class="my-modal" id="add-amount-modal">
+      <div class="row">
+        <section class="col-6 m-auto">
+          <h4 class="text-center">Add Amount</h4>
+          <hr>
+          <div class="row">
+            <div class="col-6 m-auto">
+              <div>
+                <label for="enter-amount text-bold"><strong>Enter Amount</strong></label>
+                <input type="number" class="form-control" id="enter-amount" placeholder="Enter Amount Here">
+              </div>
+              <p class="mt-2">
+                <button class="btn btn-primary">Make Payment</button>
+                <span class="btn btn-danger" id="close-btn">Cancel</span>
+              </p>
+            </div>
+          </div>
+          <form>
+            
+          </form>
+        </section>
+      </div>
+    </div>
+
+  </div>
+  
+  <div class="row mt-2 note">
+    <div class="col-12">
+      <p class=""><strong>Note:</strong> 
+        As per departmental e-Auction sale terms and conditions real time e-Wallete amount is more the <i class="fas fa-inr"></i> 00.000 & % Amount 
+        block into total Bid values.
+      </p>
+    </div>
+  </div>
+
+  <section class="">
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-bordered border-primary text-center">
+          <thead class="">
+            <tr>
+              <th class="bg-primary text-light">Office/Division Name</th>
+              <th class="bg-primary text-light">Auction Day Date</th>
+              <th class="bg-primary text-light">Running Lots</th>
+              <th class="bg-primary text-light">Auction Day Start Time End Time</th>
+              <th class="bg-primary text-light">Breake Day Start Time End Time</th>
+              <th rowspan="2" style="width: 300px;">
+                <!-- <div class="start-count-down-wrapper">
+                  <div><small><strong>Auction will be start within,</strong></small></div>
+                  <div style="color: red;font-size:15px">
+                    02:00:00
+                  </div>
+                </div> -->
+                <!-- <div class="breake-count-down-wrapper">
+                  <div><small><strong>Breake Will Be End Within,</strong></small></div>
+                  <div>
+                    02:00:00
+                  </div>
+                </div> -->
+                <button class="btn btn-outline-warning">
+                  Enter Bdding Hall
+                </button>
+              </th>
+            </tr>
+            <tr>
+              <td>Office Name</td>
+              <td>21-09-2022</td>
+              <td>10</td>
+              <td><strong>13:00:00 To 19:00:00</strong></td>
+              <td><strong>15:00:00 To 16:00:00</strong></td>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-3">
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-bordered border-primary text-center">
+          <thead class="text-light bg-primary">
+            <tr>
+              <th rowspan="2">Sr. No.</th>
+              <th rowspan="2">Batch No.</th>
+              <th rowspan="2">Lot No.</th>
+              <th rowspan="2">Office/Division</th>
+              <th rowspan="2">Sub Office/Depot</th>
+              <th rowspan="2">Date</th>
+              <th colspan="2">Auction Time</th>
+              <th rowspan="2">Auction Status</th>
+              <th rowspan="2">My Bid</th>
+              <th rowspan="2">Highest(H1)</th>
+              <th rowspan="2">Lot Price</th>
+              <th rowspan="2">Rank</th>
+              <th rowspan="2">Remark</th>
+              <th rowspan="2">Bid Details</th>
+            </tr>
+            <tr>
+              <th>Start</th>
+              <th>End</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <span class="icon view-btn"><i class="metismenu-icon pe-7s-look"></i></span>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <span class="icon view-btn"
+                  ><i class="metismenu-icon pe-7s-look"></i
+                ></span>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <span class="icon view-btn"
+                  ><i class="metismenu-icon pe-7s-look"></i
+                ></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div id="lot-info-modal" class="my-modal">
+          <div class="row">
+            <div class="col-10 m-auto">
+              <section class="">
+                <h4 class="text-center">Bidding Details</h4>
+                <hr />
+                <div class="main-heading">
+                  <p class="text-center">Head Office/Department Name:</p>
+                  <hr />
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="info__wrapper">
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="info">
+                            <span class="heading">Office/Division Name:</span>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="info">
+                            <span class="heading">Sub Office/Division Name:</span>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="info">
+                            <span class="heading">Lot No:.</span>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="info">
+                            <span class="heading">Material Type:</span>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="info">
+                            <span class="heading">Species:</span>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="info">
+                            <span class="heading">Material Status:</span>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="info">
+                            <span class="heading">Length:</span>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="info">
+                            <span class="heading">Girth/Category: </span>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="info">
+                            <span class="heading">QTY: </span>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="info">
+                            <span class="heading">VOL/QTS/KG/Bundle: </span>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="info">
+                            <span class="heading">Sale Unit: </span>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="info">
+                            <span class="heading">Socity/Source: </span>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="info">
+                            <span class="heading">Condition/Scheme:</span>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <button class="btn btn-success">View Images</button>
+                          <button class="btn btn-danger close-btn" id="close-btn">Close</button>
+                        </div>
+                      </div>
+                      <hr />
+                      <div class="text-center">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <table class="table table-bordered border-primary text-center">
+                      <thead class="text-light bg-primary">
+                        <th>Sr. No.</th>
+                        <th>Bid Amount</th>
+                        <th>Lot Price</th>
+                        <th>PRNO</th>
+                        <th>Name</th>
+                        <th>Date & Time</th>
+                        <th>IP Address</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>  
